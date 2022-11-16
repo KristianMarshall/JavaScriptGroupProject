@@ -3,6 +3,7 @@
 *.doc
 *.zip
 auth.js
+config.js
 
 # Logs
 logs
