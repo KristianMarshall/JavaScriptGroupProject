@@ -11,3 +11,10 @@ app.set('view engine', 'ejs');
 app.get("/", (request, response) => {
   response.render("index");
 });
+
+app.get("/restaurantsJson", (request, response) => {
+  queries.querySql("SELECT * from restaurants").then(results => {
+    response.json(results);
+  });
+});
+

@@ -5,5 +5,12 @@
   </head>
   <body>
     Hello!
+    <script type="text/javascript">
+      fetch("/restaurantsJson")
+      .then(response => response.json())
+      .then( results =>{
+        console.log(results);
+      })
+    </script>
   </body>
 </html>
