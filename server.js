@@ -1,8 +1,8 @@
 //Group Assignment - Kristian Marshall, Corson Shane
 const express = require('express');
-const auth = require('./mysql/auth'); //TODO: Replace with config on submit
+const queries = require("./mysql/queries");
 const app = express();
-const mysql = require('mysql');
+
 
 app.listen(3000);
 app.set('view engine', 'ejs');

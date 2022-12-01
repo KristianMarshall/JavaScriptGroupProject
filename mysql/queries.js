@@ -1,5 +1,5 @@
-const mysql = require("./config.js");
-
+//const mysql = require("./config.js");
+const auth = require('./mysql/auth'); //TODO: Replace with config on submit
 
 module.exports = {
 };
