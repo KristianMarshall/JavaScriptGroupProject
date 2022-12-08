@@ -1,0 +1,30 @@
+body{
+    background-color: black;
+    color: white;
+}
+table {
+border-collapse: collapse;
+width: 100%;
+}
+
+td, th {
+border: 1px solid #dddddd;
+text-align: left;
+padding: 8px;
+}
+
+tr:nth-child(even) {
+background-color: #4d4d4d;
+}
+#previous {
+    text-align: left;
+}
+#next {
+    text-align: right;
+}
+#rowsDisplay {
+    text-align: center;
+}
+.block {
+    display: inline-block;
+}
