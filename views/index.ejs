@@ -2,8 +2,45 @@
 <html>
   <head>
     <title>Restaurants</title>
+    <link rel ="stylesheet" type = "text/css" href="/styling.css"/>
   </head>
   <body>
-    Hello!
+    <select name="filterOne">
+      <option value=""> -- No Filter -- </option>
+    </select>
+    <select name="filterOne">
+      <option value=""> -- No Filter -- </option>
+    </select>
+    <input type="button" value="Apply Filter" id="apply"/>
+    <input type="button" value="Clear Filter" id="Clear"/>
+    <br>
+      <table id = "table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Country</th>
+            <th>City</th>
+            <th>Cuisine Type</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div class="block">
+      <button id="previous">Previous</button>
+        <p id="rowsDisplay">Placeholder</p>
+        <button id="next">Next</button>
+    </div>
+        <p>
+            <label>Per page: </label>
+            <select id="perPage">
+                <option value="3">3</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+            </select>
+        </p>
+    <script type="text/javascript" src="./main.js"> </script>
   </body>
 </html>

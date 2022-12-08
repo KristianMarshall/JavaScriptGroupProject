@@ -1,8 +1,18 @@
 //const mysql = require("./config.js");
-const auth = require('./auth'); //TODO: Replace with config on submit
+const mysql = require('./auth'); //TODO: Replace with config on submit
 
 module.exports = {
+    querySql: querySql,
+    getData: getData
 };
+
+function getData(skip, take){
+let query = "SELECT name, country, city, cuisine from restaurants LIMIT ?, ?";
+
+  query = mysql.functions.format(query, [skip, take]);
+
+  return querySql(query);
+}
 
 
 /*****************************************************************
