@@ -22,3 +22,21 @@ app.get("/restaurantsJson", (request, response) => {
   
 });
 
+app.get("/filtersJson", (request, response) => {
+  
+  let countries = queries.querySql("SELECT DISTINCT country FROM restaurants");
+  let cities = queries.querySql("SELECT DISTINCT city FROM restaurants");
+  let cuisine = queries.querySql("SELECT DISTINCT cuisine FROM restaurants");
+
+  Promise.all([countries, cities, cuisine]).then(result => {
+    response.json( {
+      resultsData: {
+        Country: result[0],
+        City: result[1],
+        Cuisine: result[2]
+      }
+    });
+  });
+  
+});
+
