@@ -8,7 +8,7 @@
     <select name="filterOne">
       <option value=""> -- No Filter -- </option>
     </select>
-    <select name="filterOne">
+    <select name="filterTwo">
       <option value=""> -- No Filter -- </option>
     </select>
     <input type="button" value="Apply Filter" id="apply"/>
@@ -17,24 +17,23 @@
       <table id = "table">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Country</th>
-            <th>City</th>
-            <th>Cuisine Type</th>
+            <th style="width:30%">Name</th>
+            <th style="width:20%">Country</th>
+            <th style="width:20%">City</th>
+            <th style="width:30%">Cuisine Type</th>
           </tr>
         </thead>
         <tbody>
         </tbody>
     </table>
     <div class="block">
-      <button id="previous">Previous</button>
-        <p id="rowsDisplay">Placeholder</p>
-        <button id="next">Next</button>
+      <button class="previous" >Previous</button>
+        <p class="rowsDisplay"></p>
+        <button class="next">Next</button>
     </div>
         <p>
             <label>Per page: </label>
             <select id="perPage">
-                <option value="3">3</option>
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="25">25</option>
