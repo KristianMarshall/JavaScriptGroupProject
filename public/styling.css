@@ -1,13 +1,9 @@
 body{
-    background-color: black;
+    background-color: #212529;
     color: white;
 }
-table {
-border-collapse: collapse;
-width: 100%;
-}
 
-td, th {
+/* td, th {
 border: 1px solid #dddddd;
 text-align: left;
 padding: 8px;
@@ -15,7 +11,8 @@ padding: 8px;
 
 tr:nth-child(even) {
 background-color: #4d4d4d;
-}
+} */
+
 .previous {
     justify-self: flex-start;
     flex: 1;

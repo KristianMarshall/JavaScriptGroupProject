@@ -16,7 +16,8 @@ app.get("/restaurantsJson", (request, response) => {
   let take = parseInt(request.query.take);
   let skip = parseInt(request.query.page) * take;
   
-  queries.getData(skip, take).then(results => {
+  queries.getData(skip, take, request.query.filterType, request.query.filterValue)
+  .then(results => {
     response.json(results);
   })
   
@@ -24,9 +25,9 @@ app.get("/restaurantsJson", (request, response) => {
 
 app.get("/filtersJson", (request, response) => {
   
-  let countries = queries.querySql("SELECT DISTINCT country FROM restaurants");
-  let cities = queries.querySql("SELECT DISTINCT city FROM restaurants");
-  let cuisine = queries.querySql("SELECT DISTINCT cuisine FROM restaurants");
+  let countries = queries.querySql("SELECT DISTINCT country FROM restaurants ORDER BY country");
+  let cities = queries.querySql("SELECT DISTINCT city FROM restaurants ORDER BY city");
+  let cuisine = queries.querySql("SELECT DISTINCT cuisine FROM restaurants ORDER BY cuisine");
 
   Promise.all([countries, cities, cuisine]).then(result => {
     response.json( {

@@ -10,10 +10,27 @@ window.addEventListener("load", event =>{
                 loadFilterTwoDropdown(result.resultsData[filter]);
             } else
                 loadFilterTwoDropdown([]);
+            
         })
     })
 
-    getData();
+    document.querySelector("#apply").addEventListener("click", event => {
+        if(document.querySelector("#filterTwo").value != ""){
+            document.querySelector("#Clear").disabled = false;
+            getData();
+        } else
+            alert("No Filter Option Selected");
+    });
+
+    document.querySelector("#Clear").addEventListener("click", event => {
+        event.target.disabled = true; //disable the clear button
+        document.querySelector("#filterOne").value = "";
+        document.querySelector("#filterTwo").value = "";
+        loadFilterTwoDropdown([]);
+        getData();
+    });
+
+    getData(); //gets the data on initial page load
 
 });
 
@@ -44,8 +61,16 @@ function loadFilterTwoDropdown(dropdownData){
 
 let page = 0;
 let take = 5;
+let filterType = "";
+let filterValue = "";
+
 function getData(){
-    fetch(`/restaurantsJson?page=${page}&take=${take}`)
+
+    filterType = document.querySelector("#filterOne").value;
+
+    filterValue = document.querySelector("#filterTwo").value;
+
+    fetch(`/restaurantsJson?page=${page}&take=${take}&filterType=${filterType}&filterValue=${filterValue}`)
         .then(response => response.json())
         .then( results =>{
 
@@ -81,7 +106,6 @@ function updatePageData(){
     })*/
 }
 
-getData();
 updatePageData();
 
 document.querySelector(".previous").addEventListener("click", event => {

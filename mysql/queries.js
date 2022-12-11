@@ -6,10 +6,20 @@ module.exports = {
     getData: getData
 };
 
-function getData(skip, take){
-let query = "SELECT name, country, city, cuisine from restaurants LIMIT ?, ?";
+function getData(skip, take, filterType, filterValue){
+  let query = `
+      SELECT name, country, city, cuisine 
+      FROM restaurants`;
+  let queryVars = [skip, take];
 
-  query = mysql.functions.format(query, [skip, take]);
+  if(filterType != ''){
+    query += " WHERE ?? = ?";
+    queryVars.unshift(filterValue);
+    queryVars.unshift(filterType);
+  }
+
+  query += " ORDER BY name LIMIT ?, ?";
+  query = mysql.functions.format(query, queryVars);
 
   return querySql(query);
 }
