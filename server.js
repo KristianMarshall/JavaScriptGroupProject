@@ -25,9 +25,9 @@ app.get("/restaurantsJson", (request, response) => {
 
 app.get("/filtersJson", (request, response) => {
   
-  let countries = queries.querySql("SELECT DISTINCT country FROM restaurants ORDER BY country");
-  let cities = queries.querySql("SELECT DISTINCT city FROM restaurants ORDER BY city");
-  let cuisine = queries.querySql("SELECT DISTINCT cuisine FROM restaurants ORDER BY cuisine");
+  let countries = queries.querySql("SELECT DISTINCT country FROM restaurants ORDER BY country;");
+  let cities = queries.querySql("SELECT DISTINCT city FROM restaurants ORDER BY city;");
+  let cuisine = queries.querySql("SELECT DISTINCT cuisine FROM restaurants ORDER BY cuisine;");
 
   Promise.all([countries, cities, cuisine]).then(result => {
     response.json( {

@@ -12,13 +12,17 @@ function getData(skip, take, filterType, filterValue){
       FROM restaurants`;
   let queryVars = [skip, take];
 
+  let queryFilter = "";
+
   if(filterType != ''){
-    query += " WHERE ?? = ?";
+    queryFilter += " WHERE ?? = ?";
     queryVars.unshift(filterValue);
     queryVars.unshift(filterType);
+    queryVars.push(filterType);
+    queryVars.push(filterValue);
   }
-
-  query += " ORDER BY name LIMIT ?, ?";
+  query += queryFilter;
+  query += ` ORDER BY name LIMIT ?, ?; SELECT count(id) as total FROM restaurants ${queryFilter};`;
   query = mysql.functions.format(query, queryVars);
 
   return querySql(query);
@@ -42,7 +46,7 @@ function querySql(sql) {
       });
 
     return new Promise((resolve, reject) => {
-        con.query(sql, (error, sqlResult) => {
+        con.query(sql, [1, 2], (error, sqlResult) => {
             if(error) {
                 return reject(error);
             }           

@@ -1,32 +1,23 @@
 body{
-    background-color: #212529;
+    background-color: #282b2f;
     color: white;
+    margin: 1em;
 }
 
-/* td, th {
-border: 1px solid #dddddd;
-text-align: left;
-padding: 8px;
+#filters{
+    margin-bottom: 1em;
 }
 
-tr:nth-child(even) {
-background-color: #4d4d4d;
-} */
-
-.previous {
-    justify-self: flex-start;
-    flex: 1;
-    width:15%;
-}
-.next {
-    justify-self: flex-end;
-    flex: 1;
-    width:15%;
-}
 .rowsDisplay {
-    justify-self: center;
     flex: 1;
+    justify-content: center;
+    display: flex;
 }
+
+#perPage {
+    margin-top: 1em;
+}
+
 .block {
     display: flex;
     flex-wrap: nowrap;

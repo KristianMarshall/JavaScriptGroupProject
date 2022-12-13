@@ -1,3 +1,9 @@
+let total = 0;
+let page = 0;
+let take = 5;
+let filterType = "";
+let filterValue = "";
+
 window.addEventListener("load", event =>{
     fetch("/filtersJson")
     .then(response => response.json())
@@ -15,8 +21,14 @@ window.addEventListener("load", event =>{
     })
 
     document.querySelector("#apply").addEventListener("click", event => {
+
         if(document.querySelector("#filterTwo").value != ""){
             document.querySelector("#Clear").disabled = false;
+
+            filterType = document.querySelector("#filterOne").value;
+            filterValue = document.querySelector("#filterTwo").value;
+            page = 0;
+
             getData();
         } else
             alert("No Filter Option Selected");
@@ -27,6 +39,27 @@ window.addEventListener("load", event =>{
         document.querySelector("#filterOne").value = "";
         document.querySelector("#filterTwo").value = "";
         loadFilterTwoDropdown([]);
+        getData();
+    });
+
+    document.querySelector("#previous").addEventListener("click", event => {
+        if(page>=0){
+            page--;
+            getData();
+        }
+    });
+    
+    document.querySelector("#next").addEventListener("click", event => {
+        if((page+1)*take <= total){
+            page++;
+            getData();
+        }
+    });
+    
+    document.querySelector("#perPage").addEventListener("change", event => {
+        page = 0;
+        let perPageValue = document.querySelector('#perPage option:checked').value;
+        take = perPageValue;
         getData();
     });
 
@@ -42,7 +75,6 @@ function loadFilterOneDropdown(data){
     filterOptions.forEach(option => {
         filterOne.innerHTML += `<option>${option}</option>`;
     });
-
 }
 
 function loadFilterTwoDropdown(dropdownData){
@@ -59,73 +91,34 @@ function loadFilterTwoDropdown(dropdownData){
 }
 
 
-let page = 0;
-let take = 5;
-let filterType = "";
-let filterValue = "";
 
 function getData(){
-
-    filterType = document.querySelector("#filterOne").value;
-
-    filterValue = document.querySelector("#filterTwo").value;
 
     fetch(`/restaurantsJson?page=${page}&take=${take}&filterType=${filterType}&filterValue=${filterValue}`)
         .then(response => response.json())
         .then( results =>{
-
+            total = results[1][0].total;
             let tableData = "";
-            results.forEach(rowData => {
+            results[0].forEach(rowData => {
                 tableData += "<tr>";
                 for(const cellData in rowData){
                     tableData += `<td>${rowData[cellData]}</td>`;
                 }
                 tableData += "</tr>";
             });
+
             document.querySelector("tbody").innerHTML = tableData;
+
+            document.querySelector(".rowsDisplay").innerHTML= `Displaying ${page*take+1} - ${(page+1)*take < total ? (page+1)*take : total} of ${total}`;
+
+            if(page > 0)
+                document.querySelector("#previous").disabled = false;
+            else
+                document.querySelector("#previous").disabled = true;
+
+            if((page+1)*take < total)
+                document.querySelector("#next").disabled = false;
+            else
+                document.querySelector("#next").disabled = true;
     })
 }
-
-function updatePageData(){
-    /*fetch(`/restaurantsJson?page=${page}&take=${take}`)
-        .then(response => response.json())
-        .then( results =>{
-    let pageData = "";
-    pageData += "Displaying ";
-    if(page=1){
-        pageData += "1"
-    }
-    else{
-        pageData += take+1;
-    }
-    pageData += " - ";
-    pageData += page+1 * take;
-    pageData += " of ";
-    pageData += "PLACEHOLDER";
-    document.querySelector(".rowsDisplay").innerHTML = pageData;
-    })*/
-}
-
-updatePageData();
-
-document.querySelector(".previous").addEventListener("click", event => {
-    if(page!=0){
-        page--;
-    }
-    getData();
-    updatePageData();
-});
-
-document.querySelector(".next").addEventListener("click", event => {
-    page++;
-    getData();
-    updatePageData();
-});
-
-document.querySelector("#perPage").addEventListener("change", event => {
-    page = 0;
-    let perPageValue = document.querySelector('#perPage option:checked').value;
-    take = perPageValue;
-    getData();
-    updatePageData();
-});
