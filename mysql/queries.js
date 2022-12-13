@@ -6,10 +6,24 @@ module.exports = {
     getData: getData
 };
 
-function getData(skip, take){
-let query = "SELECT name, country, city, cuisine from restaurants LIMIT ?, ?";
+function getData(skip, take, filterType, filterValue){
+  let query = `
+      SELECT name, country, city, cuisine 
+      FROM restaurants`;
+  let queryVars = [skip, take];
 
-  query = mysql.functions.format(query, [skip, take]);
+  let queryFilter = "";
+
+  if(filterType != ''){
+    queryFilter += " WHERE ?? = ?";
+    queryVars.unshift(filterValue);
+    queryVars.unshift(filterType);
+    queryVars.push(filterType);
+    queryVars.push(filterValue);
+  }
+  query += queryFilter;
+  query += ` ORDER BY name LIMIT ?, ?; SELECT count(id) as total FROM restaurants ${queryFilter};`;
+  query = mysql.functions.format(query, queryVars);
 
   return querySql(query);
 }
@@ -32,7 +46,7 @@ function querySql(sql) {
       });
 
     return new Promise((resolve, reject) => {
-        con.query(sql, (error, sqlResult) => {
+        con.query(sql, [1, 2], (error, sqlResult) => {
             if(error) {
                 return reject(error);
             }           
