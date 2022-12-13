@@ -14,7 +14,6 @@ let query = "SELECT name, country, city, cuisine from restaurants LIMIT ?, ?";
   return querySql(query);
 }
 
-
 /*****************************************************************
  *        You can ignore everything below here!
  *****************************************************************/
