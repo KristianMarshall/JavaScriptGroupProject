@@ -38,6 +38,8 @@ window.addEventListener("load", event =>{
         event.target.disabled = true; //disable the clear button
         document.querySelector("#filterOne").value = "";
         document.querySelector("#filterTwo").value = "";
+        filterType = "";
+        filterValue = "";
         loadFilterTwoDropdown([]);
         getData();
     });
